@@ -23,6 +23,7 @@ public class C01_TestNGAnnotations {
 
       NOTE: TestNG de test case ler isim sirasina gore calisir
       @Test(priority = x) : Test caseler oncelemek icin kullanilir x degeri hangisi kucukse o once calisir.
+
      */
 
     @BeforeSuite
