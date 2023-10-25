@@ -10,7 +10,7 @@ import techproed.utilities.Driver;
 public class C05_OpenSourceLogin {
 
     @Test
-    public void penSourceLogin() throws InterruptedException {
+    public void openSourceLogin() throws InterruptedException {
 
      //  1. Adim sayfaya git
         Driver.getDriver().get(ConfigReader.getProperty("open_source_url"));
@@ -27,8 +27,6 @@ public class C05_OpenSourceLogin {
         OpenSourceDashboardPage openSourceDashboardPage = new OpenSourceDashboardPage();
         Thread.sleep(2000);
         Assert.assertTrue(openSourceDashboardPage.dashboardHeader.isDisplayed());
-
-
 
         // sayfayi kapatalim
         Thread.sleep(3000);
