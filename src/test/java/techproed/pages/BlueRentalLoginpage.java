@@ -22,4 +22,10 @@ public class BlueRentalLoginpage {
 
     @FindBy(xpath = "//div[@role='alert']")
     public WebElement error_message_1;
+
+    @FindBy(xpath = "//div[.='email must be a valid email']")
+    public WebElement error_message_2;
+
+    @FindBy(xpath = "//div[.='Please enter your password']")
+    public WebElement error_message_3;
 }

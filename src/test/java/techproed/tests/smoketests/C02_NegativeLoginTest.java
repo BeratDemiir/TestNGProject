@@ -37,5 +37,23 @@ User with email fake@bluerentalcars.com not found
         Thread.sleep(2000);
       Assert.assertEquals(blueRentalLoginpage.error_message_1.getText(),"User with email fake@bluerentalcars.com not found");
 
+      Driver.closeDriver();
+
+    }
+
+    @Test
+    public void test2() throws InterruptedException {
+        Driver.getDriver().get(ConfigReader.getProperty("app_url"));
+        blueRentalHomePage = new BlueRentalHomePage();
+        blueRentalLoginpage = new BlueRentalLoginpage();
+        blueRentalHomePage.loginKink.click();
+        blueRentalLoginpage.emailBox.sendKeys(ConfigReader.getProperty("yanlis_email"));
+        blueRentalLoginpage.passwordBox.sendKeys(ConfigReader.getProperty("admin_password"));
+        blueRentalLoginpage.loginButton.click();
+        Thread.sleep(2000);
+        Assert.assertEquals(blueRentalLoginpage.error_message_2.getText(),"email must be a valid email");
+
+        Driver.closeDriver();
+
     }
 }
