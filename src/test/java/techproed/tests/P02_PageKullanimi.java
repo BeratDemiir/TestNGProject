@@ -3,6 +3,7 @@ package techproed.tests;
 import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
 import techproed.pages.P01_AmazonPage;
+import techproed.utilities.ConfigReader;
 import techproed.utilities.Driver;
 
 public class P02_PageKullanimi {
@@ -12,7 +13,7 @@ public class P02_PageKullanimi {
 
         P01_AmazonPage amazonPage = new P01_AmazonPage();
         // amazona gidelim
-        Driver.getDriver().get("https://amazon.com");
+        Driver.getDriver().get(ConfigReader.getProperty("amazon_url"));
 
         // iphone aratalim
         amazonPage.aramaKutusu.sendKeys("iphone", Keys.ENTER);
