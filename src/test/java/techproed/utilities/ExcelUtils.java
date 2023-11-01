@@ -2,11 +2,8 @@ package techproed.utilities;
 
 import org.apache.poi.ss.usermodel.*;
 import org.testng.Assert;
-
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +13,7 @@ public class ExcelUtils {
     private Workbook workbook;
     private Sheet workSheet;
     private String path;
-    public ExcelUtils(String path, String sheetName){// Bu Yapıcı excel dosyasını açmak ve erişmek içindir
+    public ExcelUtils(String path, String sheetName){// Bu constructor excel dosyasını açmak ve erişmek içindir
         this.path = path;
         try {
             // Excel dosyasının açılması
@@ -32,8 +29,8 @@ public class ExcelUtils {
         }
     }
 
-    // Bu, excel dosyasındaki verilerin listesini alacaktır
-    // Bu bir string haritası listesidir. Bu, verileri string olarak alır ve verileri bir Map of string olarak döndürür
+    // Excel deki verileri List olarak almamizi saglar
+    // Excel deki verileri test sinifinda kullanmak icin bu method u kullaniriz
     public List<Map<String,String>> getDataList(){
         // tüm sütunları almak
         List<String> columns = getColumnsNames();
