@@ -1,5 +1,6 @@
 package techproed.tests.excelautomation;
 
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import techproed.pages.BlueRentalHomePage;
 import techproed.pages.BlueRentalLoginpage;
@@ -8,6 +9,7 @@ import techproed.utilities.Driver;
 import techproed.utilities.ExcelUtils;
 import techproed.utilities.ReusableMethods;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -55,9 +57,9 @@ public class C01_ExcelLogin {
     }
 
     @Test
-    public void customerLogin() {
-        String path = "./src/test/java/resources/mysmoketestdata.xlsx";
-        String sayfa = "Sayfa 1";
+    public void customerLogin() throws IOException {
+        String path = "src/test/java/resources/mysmoketestdata (1).xlsx";
+        String sayfa = "customer_info";
 
         // Datalari excel utils methodlari kullanarak buraya alacagiz.
         excelUtils = new ExcelUtils(path,sayfa);
@@ -77,7 +79,19 @@ public class C01_ExcelLogin {
             // login buttonuna tikla
             blueRentalLoginpage.loginButton.click();
             ReusableMethods.waitFor(1);
+
+            // giris isleminin basarili oldugunu gostermek icin assertion yaptik
+            ReusableMethods.verifyElementDisplayed(blueRentalHomePage.userID);
+            ReusableMethods.waitFor(1);
+
+            // her bir islem den sonra ekran goruntusu aldik
+            ReusableMethods.getScreenshot("EkranGoruntusu");
         }
+    }
+
+    @AfterMethod
+    public void terDown(){
+        Driver.closeDriver();
     }
 }
 

@@ -4,129 +4,125 @@ import org.apache.poi.ss.usermodel.*;
 import org.testng.Assert;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ExcelUtils {
-    private Workbook workbook;
+    private Workbook workBook;
     private Sheet workSheet;
     private String path;
-    public ExcelUtils(String path, String sheetName){// Bu constructor excel dosyasını açmak ve erişmek içindir
+
+    public ExcelUtils(String path, String sheetName) {
         this.path = path;
+
         try {
-            // Excel dosyasının açılması
             FileInputStream fileInputStream = new FileInputStream(path);
-            // çalışma kitabına erişim
-            workbook = WorkbookFactory.create(fileInputStream);
-            // çalışma sayfasını almak
-            workSheet = workbook.getSheet(sheetName);
-            // sayfanın veri içerip içermediğini iddia etmek
-            Assert.assertNotNull(workSheet,"Worksheet: \"" + sheetName + "\" was not found\n");
-        }catch (Exception e){
-            throw  new RuntimeException(e);
+            this.workBook = WorkbookFactory.create(fileInputStream);
+            this.workSheet = this.workBook.getSheet(sheetName);
+            Assert.assertNotNull(this.workSheet, "Worksheet: \"" + sheetName + "\" was not found\n");
+        } catch (Exception var4) {
+            throw new RuntimeException(var4);
         }
     }
 
-    // Excel deki verileri List olarak almamizi saglar
-    // Excel deki verileri test sinifinda kullanmak icin bu method u kullaniriz
-    public List<Map<String,String>> getDataList(){
-        // tüm sütunları almak
-        List<String> columns = getColumnsNames();
-        // metodu bunu döndürecektir
-        List<Map<String, String>> data = new ArrayList<>();
-        for (int i = 1; i < rowCount(); i++){
-            // get each row
-            Row row = workSheet.getRow(i);
-            // sütun ve değer kullanılarak satırın eşleştirilmesi
-            // key=column, value=cell
-            Map<String,String> rowMap = new HashMap<String, String>();
-            for (Cell cell : row){
+    public List<Map<String, String>> getDataList() {
+        List<String> columns = this.getColumnsNames();
+        List<Map<String, String>> data = new ArrayList();
+
+        for(int i = 1; i < this.rowCount(); ++i) {
+            Row row = this.workSheet.getRow(i);
+            Map<String, String> rowMap = new HashMap();
+            Iterator var6 = row.iterator();
+
+            while(var6.hasNext()) {
+                Cell cell = (Cell)var6.next();
                 int columnIndex = cell.getColumnIndex();
-                rowMap.put(columns.get(columnIndex), cell.toString());
+                rowMap.put((String)columns.get(columnIndex), cell.toString());
             }
+
             data.add(rowMap);
         }
+
         return data;
     }
-    // Belirli bir tek satırdaki sütun sayısını alma
-    public int columnCount(){
-        // satır 1'de kaç sayı olduğunu alma
-        return workSheet.getRow(0).getLastCellNum();
+
+    public int columnCount() {
+        return this.workSheet.getRow(0).getLastCellNum();
     }
-    // son satır numarasını nasıl alırsınız? Dizin 0'dan başlar.
-    public int rowCount(){
-        return workSheet.getLastRowNum() + 1; // gerçek sayıyı elde etmek için 1 ekleyerek
+
+    public int rowCount() {
+        return this.workSheet.getLastRowNum() + 1;
     }
-    // Satır ve sütun numarasını girdiğinizde, verileri alırsınız
-    public String getCellData(int rowNum, int colNum){
-        Cell cell;
+
+    public String getCellData(int rowNum, int colNum) {
         try {
-            cell = workSheet.getRow(rowNum).getCell(colNum);
+            Cell cell = this.workSheet.getRow(rowNum).getCell(colNum);
             String cellData = cell.toString();
             return cellData;
-        }catch (Exception e){
-            throw new RuntimeException(e);
+        } catch (Exception var5) {
+            throw new RuntimeException(var5);
         }
     }
 
-    // tüm verileri iki boyutlu diziye almak ve verileri döndürmek
-    public String[][] getDataArray(){
-        String[][] data = new String[rowCount()][columnCount()];
-        for (int i = 0; i< rowCount(); i++){
-            for (int j = 0; j < columnCount(); j++){
-                String value = getCellData(i,j);
+    public String[][] getDataArray() {
+        String[][] data = new String[this.rowCount()][this.columnCount()];
+
+        for(int i = 0; i < this.rowCount(); ++i) {
+            for(int j = 0; j < this.columnCount(); ++j) {
+                String value = this.getCellData(i, j);
                 data[i][j] = value;
             }
         }
+
         return data;
     }
 
-    // ilk satıra gidip her bir sütunu tek tek okumak
-    public List<String> getColumnsNames(){
-        List<String> columns = new ArrayList<>();
-        for (Cell cell: workSheet.getRow(0)){
+    public List<String> getColumnsNames() {
+        List<String> columns = new ArrayList();
+        Iterator var2 = this.workSheet.getRow(0).iterator();
+
+        while(var2.hasNext()) {
+            Cell cell = (Cell)var2.next();
             columns.add(cell.toString());
         }
+
         return columns;
     }
 
-    // Satır ve sütun numarasını girdiğinizde, değeri döndürme
-    public void setCellData(String value, int rowNum, int colNum){
-        Cell cell;
-        Row row;
+    public void setCellData(String value, int rowNum, int colNum) {
         try {
-            row = workSheet.getRow(rowNum);
-            cell = row.getCell(colNum);
-            if (cell == null){ // eğer değer yoksa, bir hücre oluştur
+            Row row = this.workSheet.getRow(rowNum);
+            Cell cell = row.getCell(colNum);
+            if (cell == null) {
                 cell = row.createCell(colNum);
                 cell.setCellValue(value);
-            }else {
+            } else {
                 cell.setCellValue(value);
             }
-            FileOutputStream fileInputStream = new FileOutputStream(path);
-            workbook.write(fileInputStream);
-            fileInputStream.close();
-        }catch (Exception e){
-            e.printStackTrace();
+
+            FileOutputStream fileOutputStream = new FileOutputStream(this.path);
+            this.workBook.write(fileOutputStream);
+            fileOutputStream.close();
+        } catch (Exception var7) {
+            var7.printStackTrace();
         }
+
     }
 
-    public void setCellData(String value, String columnName, int row){
-        int column = getColumnsNames().indexOf(columnName);
-        setCellData(value,row,column);
+    public void setCellData(String value, String columnName, int row) {
+        int column = this.getColumnsNames().indexOf(columnName);
+        this.setCellData(value, row, column);
     }
-    // bu yöntem veri tablosunu 2d dizisi olarak döndürecektir
-    // bu yüzden veri sağlayıcı nedeniyle bu formata ihtiyacımız var
-    public String[][] getDataArrayWithOutFirstRow(){
-        String[][] data = new String[rowCount()-1][columnCount()];
-        for (int i =1 ; i< rowCount(); i++){
-            for (int j =0; j< columnCount(); j++){
-                String value = getCellData(i,j);
-                data[i-1][j] = value;
+
+    public String[][] getDataArrayWithoutFirstRow() {
+        String[][] data = new String[this.rowCount() - 1][this.columnCount()];
+
+        for(int i = 1; i < this.rowCount(); ++i) {
+            for(int j = 0; j < this.columnCount(); ++j) {
+                String value = this.getCellData(i, j);
+                data[i - 1][j] = value;
             }
         }
+
         return data;
     }
 }
