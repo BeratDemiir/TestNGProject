@@ -29,21 +29,21 @@ public class DataProviderTest3 {
 
         //    BU 4 CUSTOMER DATALARI ILE LOGIN TESTI YAPALIM
         BlueRentalHomePage blueRentalHomePage;
-        BlueRentalLoginpage blueRentalLoginPage;
+        BlueRentalLoginpage blueRentalLoginpage;
 
         @Test(dataProvider = "customerData")
         public void dataProviderLoginTest(String email, String sifre) throws IOException {
             //        Sayfaya git
             Driver.getDriver().get(ConfigReader.getProperty("app_url"));//HOME SAYFASINA
             blueRentalHomePage = new BlueRentalHomePage();
-            blueRentalLoginPage = new BlueRentalLoginpage();
+            blueRentalLoginpage = new BlueRentalLoginpage();
             blueRentalHomePage.loginKink.click();
             ReusableMethods.waitFor(1);// 1 saniye bekle
-            blueRentalLoginPage.emailBox.sendKeys(email);
+            blueRentalLoginpage.emailBox.sendKeys(email);
             ReusableMethods.waitFor(1);
-            blueRentalLoginPage.passwordBox.sendKeys(sifre);
+            blueRentalLoginpage.passwordBox.sendKeys(sifre);
             ReusableMethods.waitFor(1);
-            blueRentalLoginPage.loginButton.click();
+            blueRentalLoginpage.loginButton.click();
             //            GIRIS YAPILDI
             ReusableMethods.waitFor(1);
             ReusableMethods.verifyElementDisplayed(blueRentalHomePage.userID);//ASSERTION
@@ -58,5 +58,4 @@ public class DataProviderTest3 {
             Driver.closeDriver();
 
         }
-
-    }
+ }
