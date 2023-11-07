@@ -90,7 +90,7 @@ public class C01_ExcelLogin {
     }
 
     @AfterMethod
-    public void terDown(){
+    public void tearDown(){
         Driver.closeDriver();
     }
 }
