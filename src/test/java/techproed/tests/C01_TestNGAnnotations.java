@@ -69,7 +69,7 @@ public class C01_TestNGAnnotations {
         System.out.println("Test 1");
     }
 
-    @Test(priority = 1)
+    @Test(priority = 1, groups = "regression-tests")
     public void test8() {
         System.out.println("Test 2");
     }
@@ -79,7 +79,7 @@ public class C01_TestNGAnnotations {
         System.out.println("Test 3");
     }
 
-    @Test(priority = 3)
+    @Test(priority = 3, groups = "regression-tests")
     public void test4() {
         System.out.println("Test 4");
     }
