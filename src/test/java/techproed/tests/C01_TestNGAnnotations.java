@@ -85,7 +85,7 @@ public class C01_TestNGAnnotations {
     }
 
     @Test(priority = 4)
-    public void test5() {
+    public void test7() {
         System.out.println("Test 5");
     }
 
