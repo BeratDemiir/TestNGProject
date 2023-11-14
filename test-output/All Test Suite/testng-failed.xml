@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [All Test Suite]" guice-stage="DEVELOPMENT">
+  <test thread-count="5" name="C:/Users/LENOVO/IdeaProjects/B103TestNGProject/src/test/java/techproed/tests/smoketests(failed)">
+    <classes>
+      <class name="techproed.tests.dataprovider.DataProviderTest4">
+        <methods>
+          <include name="customerDataTest"/>
+        </methods>
+      </class> <!-- techproed.tests.dataprovider.DataProviderTest4 -->
+      <class name="techproed.tests.dataprovider.DataProviderTest3">
+        <methods>
+          <include name="dataProviderLoginTest"/>
+        </methods>
+      </class> <!-- techproed.tests.dataprovider.DataProviderTest3 -->
+      <class name="techproed.tests.smoketests.C01_PositiveLoginTest">
+        <methods>
+          <include name="US100201_Admin_Login"/>
+        </methods>
+      </class> <!-- techproed.tests.smoketests.C01_PositiveLoginTest -->
+    </classes>
+  </test> <!-- C:/Users/LENOVO/IdeaProjects/B103TestNGProject/src/test/java/techproed/tests/smoketests(failed) -->
+</suite> <!-- Failed suite [All Test Suite] -->
