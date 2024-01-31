@@ -234,7 +234,7 @@ public class ReusableMethods {
 //            Dosyayi bulmak icin kullanilir
                 StringSelection stringSelection = new StringSelection(filePath);
                 Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection,null);
-//            ROBOT CLASS MASAUSTU UYGULAMARI ILE ILETISIME GECMEK ICIN KULLANILIT
+//            ROBOT CLASS MASAUSTU UYGULAMARI ILE ILETISIME GECMEK ICIN KULLANILIR
                 Robot robot = new Robot();
 //          CONTROL TUSUNA BAS
                 robot.keyPress(KeyEvent.VK_CONTROL);
