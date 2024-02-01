@@ -12,10 +12,11 @@ import java.time.Duration;
 public class Driver {
     // Driver.getDriver(); -> driver
     private static WebDriver driver;
+
     // getDriver() sürücü nesnesini örneklemek için kullanılır
-    public static WebDriver getDriver(){
-        if (driver==null){
-            switch (ConfigReader.getProperty("browser")){
+    public static WebDriver getDriver() {
+        if (driver == null) {
+            switch (ConfigReader.getProperty("browser")) {
                 case "chrome":
                     WebDriverManager.chromedriver().setup();
                     driver = new ChromeDriver();
@@ -36,8 +37,8 @@ public class Driver {
                     driver = new EdgeDriver();
                     break;
             }
-   //      NOTE: sel 4.5
-  //          driver = WebDriverManager.operadriver().create();
+            //      NOTE: sel 4.5
+            //          driver = WebDriverManager.operadriver().create();
         }
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(15));
@@ -46,17 +47,17 @@ public class Driver {
     }
 
     // closeDriver() sürücüyü kapatmak için kullanılır
-    public static void closeDriver(){
+    public static void closeDriver() {
         // sürücü zaten kullanılıyorsa (bir nesneyi işaret ediyorsa)
         // daha sonra sürücüden çıkın
-        if (driver!=null){
+        if (driver != null) {
             driver.quit();
-            driver=null;
+            driver = null;
         }
     }
 
-    public static void quitDriver(){
-        if (driver != null){
+    public static void quitDriver() {
+        if (driver != null) {
             driver.quit();
             driver = null;
         }
